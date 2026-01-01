@@ -1,55 +1,41 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report:
+Version change: N/A → 1.0.0
+Modified principles: N/A (new constitution)
+Added sections: All principles and sections added for Command-line Todo Application
+Removed sections: N/A
+Templates requiring updates: N/A (new constitution created)
+Follow-up TODOs: None
+-->
+# Command-line Todo Application Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### NO manual coding by the user
+All code generated through specs and tasks; No manual coding by the user; Follow clean code principles; Modular Python project structure
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### Explicit separation of concerns
+Clear separation between UI, services, storage, and models; Rich must be used for all terminal output; Questionary must be used for all user input
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### In-memory storage only
+No database, no file persistence; In-memory storage only; Use Rich for terminal output; Use Questionary for user input
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### Spec-Driven Development
+Write specification first; Generate implementation plan; Break plan into atomic tasks; Implement each task sequentially; Maintain specs history
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### Clean Architecture
+Modular Python project structure; Explicit separation of concerns (UI, services, storage, models); Use Rich and Questionary libraries as required
 
-### [PRINCIPLE_6_NAME]
+### Dependency Management
+Python version >= 3.12+; Use UV for dependency management; CLI must run cleanly via `python -m todo_cli`
 
+## Technology Requirements
+Python version >= 3.12+; Use Rich for terminal output; Use Questionary for user input; Use UV for dependency management; CLI must run via `python -m todo_cli`
 
-[PRINCIPLE__DESCRIPTION]
-
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
-
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
-
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+## Development Workflow
+Write specification first; Generate implementation plan; Break plan into atomic tasks; Implement each task sequentially; Maintain specs history; Ask no questions unless specification is ambiguous
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+All code must follow clean code principles; Modular Python structure required; In-memory storage only (no persistence); Use Rich and Questionary as specified; Follow Spec-Driven Development workflow
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
-
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2026-01-01 | **Last Amended**: 2026-01-01

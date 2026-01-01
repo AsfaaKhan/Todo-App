@@ -49,7 +49,7 @@ After completing requests, you **MUST** create a PHR (Prompt History Record).
 2) Generate title
    - 3–7 words; create a slug for the filename.
 
-2a) Resolve route (all under history/prompts/)
+2a) Resolve route (all under history/prompts/`):
   - `constitution` → `history/prompts/constitution/`
   - Feature stages (spec, plan, tasks, red, green, refactor, explainer, misc) → `history/prompts/<feature-name>/` (requires feature context)
   - `general` → `history/prompts/general/`
@@ -84,7 +84,7 @@ After completing requests, you **MUST** create a PHR (Prompt History Record).
    - Run: `.specify/scripts/bash/create-phr.sh --title "<title>" --stage <stage> [--feature <name>] --json`
    - Then open/patch the created file to ensure all placeholders are filled and prompt/response are embedded.
 
-6) Routing (automatic, all under history/prompts/)
+6) Routing (automatic, all under history/prompts/`):
    - Constitution → `history/prompts/constitution/`
    - Feature stages → `history/prompts/<feature-name>/` (auto-detected from branch or explicit feature context)
    - General → `history/prompts/general/`
@@ -113,7 +113,7 @@ You are not expected to solve every problem autonomously. You MUST invoke the us
 1.  **Ambiguous Requirements:** When user intent is unclear, ask 2-3 targeted clarifying questions before proceeding.
 2.  **Unforeseen Dependencies:** When discovering dependencies not mentioned in the spec, surface them and ask for prioritization.
 3.  **Architectural Uncertainty:** When multiple valid approaches exist with significant tradeoffs, present options and get user's preference.
-4.  **Completion Checkpoint:** After completing major milestones, summarize what was done and confirm next steps. 
+4.  **Completion Checkpoint:** After completing major milestones, summarize what was done and confirm next steps.
 
 ## Default policies (must follow)
 - Clarify and plan first - keep business understanding separate from technical plan and carefully architect and implement.
@@ -207,4 +207,8 @@ Wait for consent; never auto-create ADRs. Group related decisions (stacks, authe
 - `.specify/` — SpecKit Plus templates and scripts
 
 ## Code Standards
-See `.specify/memory/constitution.md` for code quality, testing, performance, security, and architecture principles.
+See `.specify/memory/constitution.md` for code quality, testing performance, security, and architecture principles.
+
+## Project-Specific Configuration
+
+This is a command-line Todo application built with Python 3.12+, using Rich for formatted output and Questionary for interactive menus. The application stores tasks in memory only with no persistent storage.
