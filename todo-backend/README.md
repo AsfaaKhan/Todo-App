@@ -107,3 +107,56 @@ Run the tests using pytest:
 ```bash
 pytest
 ```
+
+## Deployment
+
+### Production Deployment
+
+For production deployment, you'll need to:
+
+1. **Configure Environment Variables**:
+   - Set up your production database URL
+   - Configure security settings
+   - Set appropriate log levels
+
+2. **Run with a Production ASGI Server**:
+   ```bash
+   uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 4
+   ```
+
+3. **Using Docker** (recommended for containerized deployments):
+   ```bash
+   # Build and run with docker-compose
+   docker-compose up -d
+   ```
+
+4. **With Systemd** (Linux servers):
+   Create a systemd service file to run the application as a service.
+
+### Environment Configuration for Production
+
+Create a production `.env` file with secure settings:
+
+```env
+# Production Database Configuration
+DATABASE_URL=postgresql+asyncpg://username:password@prod-db-host:5432/todo_prod
+DATABASE_HOST=prod-db-host
+DATABASE_PORT=5432
+DATABASE_NAME=todo_prod
+DATABASE_USER=todo_user
+DATABASE_PASSWORD=your_secure_password
+
+# Security and Performance
+LOG_LEVEL=info
+MAX_CONNECTIONS=50
+MIN_CONNECTIONS=10
+
+# API Configuration
+API_V1_STR=/api/v1
+PROJECT_NAME=Todo Backend Service
+VERSION=1.0.0
+```
+
+### Docker Deployment
+
+The project includes a `docker-compose.yml` file for easy containerized deployment. Update the database credentials and other settings as needed for your production environment.
