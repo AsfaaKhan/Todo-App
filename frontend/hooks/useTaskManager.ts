@@ -1,46 +1,43 @@
 import { useState, useEffect } from 'react';
 import { Task, TaskListState } from '@/lib/types';
-import { validateTaskCreation, validateTaskUpdate, generateTaskId, filterTasks } from '@/lib/utils';
-
-const TASKS_STORAGE_KEY = 'todo-app-tasks';
+import { validateTaskCreation, validateTaskUpdate, filterTasks } from '@/lib/utils';
+import { todoApi } from '@/lib/api';
 
 export const useTaskManager = () => {
-  const [state, setState] = useState<TaskListState>(() => {
-    // Initialize state from localStorage if available
-    const savedTasks = localStorage.getItem(TASKS_STORAGE_KEY);
-    if (savedTasks) {
-      try {
-        const parsedTasks = JSON.parse(savedTasks);
-        // Convert string dates back to Date objects
-        const tasksWithDates = parsedTasks.map((task: any) => ({
-          ...task,
-          createdAt: new Date(task.createdAt),
-        }));
-        return {
-          tasks: tasksWithDates,
-          filter: 'all',
-          editingTaskId: null,
-        };
-      } catch (error) {
-        console.error('Failed to parse tasks from localStorage:', error);
-      }
-    }
-    // Return default state if no saved tasks or parsing failed
-    return {
-      tasks: [],
-      filter: 'all',
-      editingTaskId: null,
-    };
+  const [state, setState] = useState<TaskListState>({
+    tasks: [],
+    filter: 'all',
+    editingTaskId: null,
   });
 
-  // Save tasks to localStorage whenever tasks change
-  useEffect(() => {
-    localStorage.setItem(TASKS_STORAGE_KEY, JSON.stringify(state.tasks));
-  }, [state.tasks]);
-
-  // CRUD Operations with loading states
+  // Loading state for API operations
   const [loading, setLoading] = useState(false);
+  // Track if we've loaded data from the backend
+  const [initialized, setInitialized] = useState(false);
 
+  // Load tasks from the backend when the component mounts
+  useEffect(() => {
+    const loadTasks = async () => {
+      setLoading(true);
+      try {
+        const tasks = await todoApi.getTasks();
+        setState(prev => ({
+          ...prev,
+          tasks,
+        }));
+      } catch (error) {
+        console.error('Failed to load tasks from backend:', error);
+        // Still set initialized to true to avoid infinite loading
+      } finally {
+        setLoading(false);
+        setInitialized(true);
+      }
+    };
+
+    loadTasks();
+  }, []);
+
+  // CRUD Operations with backend API
   const addTask = async (title: string, description: string = '') => {
     setLoading(true);
     try {
@@ -50,13 +47,7 @@ export const useTaskManager = () => {
         throw new Error(validation.errors.join(', '));
       }
 
-      const newTask: Task = {
-        id: generateTaskId(),
-        title,
-        description,
-        completed: false,
-        createdAt: new Date(),
-      };
+      const newTask = await todoApi.createTask(title, description);
 
       setState(prev => ({
         ...prev,
@@ -76,12 +67,12 @@ export const useTaskManager = () => {
         throw new Error(validation.errors.join(', '));
       }
 
+      const updatedTask = await todoApi.updateTask(id, title, description);
+
       setState(prev => ({
         ...prev,
         tasks: prev.tasks.map(task =>
-          task.id === id
-            ? { ...task, title, description }
-            : task
+          task.id === id ? updatedTask : task
         ),
       }));
     } finally {
@@ -92,6 +83,8 @@ export const useTaskManager = () => {
   const deleteTask = async (id: string) => {
     setLoading(true);
     try {
+      await todoApi.deleteTask(id);
+
       setState(prev => ({
         ...prev,
         tasks: prev.tasks.filter(task => task.id !== id),
@@ -104,12 +97,18 @@ export const useTaskManager = () => {
   const toggleTaskStatus = async (id: string) => {
     setLoading(true);
     try {
+      // Find the current task to get its current status
+      const currentTask = state.tasks.find(task => task.id === id);
+      if (!currentTask) {
+        throw new Error(`Task with id ${id} not found`);
+      }
+
+      const updatedTask = await todoApi.toggleTaskStatus(id, !currentTask.completed);
+
       setState(prev => ({
         ...prev,
         tasks: prev.tasks.map(task =>
-          task.id === id
-            ? { ...task, completed: !task.completed }
-            : task
+          task.id === id ? updatedTask : task
         ),
       }));
     } finally {
@@ -131,12 +130,22 @@ export const useTaskManager = () => {
     }));
   };
 
+  // Filter tasks based on current filter
+  const filteredTasks = state.tasks.filter(task => {
+    if (state.filter === 'active') {
+      return !task.completed;
+    } else if (state.filter === 'completed') {
+      return task.completed;
+    }
+    return true; // 'all' filter
+  });
+
   return {
     tasks: state.tasks,
-    filteredTasks: filterTasks(state.tasks, state.filter),
+    filteredTasks,
     filter: state.filter,
     editingTaskId: state.editingTaskId,
-    loading,
+    loading: loading || !initialized,
     addTask,
     updateTask,
     deleteTask,
