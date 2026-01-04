@@ -1,56 +1,52 @@
-# Todo CLI Application
+# Todo Full-Stack Application
 
-A command-line Todo application with in-memory storage, interactive menu using Questionary, and formatted output using Rich.
+A full-stack Todo application with Next.js frontend and FastAPI backend with PostgreSQL persistence.
 
 ## Features
 
-- Add, view, update, delete, and mark tasks as complete/incomplete
-- Interactive menu using Questionary
-- Formatted output using Rich tables, panels, and colors
-- Status indicators: ✅ for completed, ⏳ for pending
-- In-memory storage only (no persistent storage)
-- Enhanced UI with emojis and styled panels
+- Full-stack web application with Next.js frontend and FastAPI backend
+- Task management: Add, view, update, delete, and mark tasks as complete/incomplete
+- Responsive UI with modern design
+- Persistent storage with PostgreSQL database
+- RESTful API with CRUD operations
+- Real-time updates and validation
 
 ## Prerequisites
 
-- Python 3.12 or higher
+- Node.js and npm for frontend
+- Python 3.12 or higher for backend
 - UV package manager
+- PostgreSQL database (or SQLite for development)
 
 ## Setup
 
 1. Clone the repository
-2. Install dependencies:
+2. Install backend dependencies:
    ```bash
+   cd todo-backend
    uv sync
+   ```
+3. Install frontend dependencies:
+   ```bash
+   cd frontend
+   npm install
    ```
 
 ## Running the Application
 
-```bash
-# Run the CLI application
-python -m src.main
-```
+1. Start the backend service:
+   ```bash
+   cd todo-backend
+   uv run uvicorn app.main:app --host 0.0.0.0 --port 8000
+   ```
+2. Start the frontend:
+   ```bash
+   cd frontend
+   npm run dev
+   ```
 
-## Usage
-
-1. Launch the application
-2. Use the interactive menu to:
-   - Add a new task (with title and optional description)
-   - View all tasks (displayed in a Rich-formatted table)
-   - Update an existing task (by ID)
-   - Delete a task (with confirmation)
-   - Mark a task as complete/incomplete
-
-## Project Structure
-
-- `src/main.py`: Main CLI interface with enhanced UI and Questionary menus
-- `src/models/task.py`: Task data model with id, title, description, completed status
-- `src/models/task_list.py`: In-memory task storage with auto-incrementing ID generation
-- `src/services/task_service.py`: Business logic for task operations
-- `src/lib/formatters.py`: Rich-based formatting utilities with improved styling
-
-## Development
-
-1. Make changes to the source files
-2. Run the application to test changes
-3. All data is stored in-memory only during the session
+## Recent Updates
+- Fixed task update functionality by ensuring consistent ID types between frontend and backend
+- Updated API client to convert numeric IDs to strings
+- Fixed Next.js configuration warnings
+- Added proper database connection handling for development
