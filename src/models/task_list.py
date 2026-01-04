@@ -1,7 +1,6 @@
 from typing import List, Optional
 from .task import Task
 
-
 class TaskList:
     """
     Collection of Task entities managed in memory.
