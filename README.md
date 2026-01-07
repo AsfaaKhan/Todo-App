@@ -54,32 +54,10 @@ A full-stack Todo application with Next.js frontend and FastAPI backend with Pos
 
 ## Deployment
 
+For complete deployment instructions, see [DEPLOYMENT.md](DEPLOYMENT.md).
+
 ### Frontend (Next.js) on Vercel
 The frontend is configured for deployment on Vercel. See `frontend/README.md` for detailed deployment instructions.
 
-1. **Prerequisites**:
-   - A deployed backend service (see backend deployment below)
-   - NEXT_PUBLIC_API_BASE_URL environment variable set to your backend URL
-
-2. **Deploy**:
-   - Connect your GitHub repository to Vercel
-   - Set environment variable: `NEXT_PUBLIC_API_BASE_URL=https://your-backend-domain.com`
-   - Deploy!
-
-### Backend (FastAPI) Deployment Options
-The backend service can be deployed using various methods:
-
-1. **Docker Deployment**:
-   - Use the provided `todo-backend/docker-compose.yml`
-   - Ensure PostgreSQL is available
-   - Set environment variables in production
-
-2. **Cloud Platforms** (AWS, GCP, Azure, etc.):
-   - Deploy the FastAPI application
-   - Configure database connection
-   - Set up reverse proxy if needed
-
-3. **VPS/Server**:
-   - Install Python dependencies
-   - Set up PostgreSQL database
-   - Run with uvicorn in production mode
+### Backend (FastAPI) Deployment
+The backend service can be deployed using various methods including Docker, cloud platforms, or traditional servers. See [DEPLOYMENT.md](DEPLOYMENT.md) for comprehensive deployment options.
