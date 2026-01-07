@@ -88,7 +88,18 @@ VERSION=1.0.0
 NEXT_PUBLIC_API_BASE_URL=https://your-backend-domain.com
 ```
 
-### Option 2: Cloud Platform Deployment
+### Option 2: Render Deployment (Recommended for Backend)
+
+**Backend on Render:**
+- Perfect for hosting FastAPI applications
+- Integrated PostgreSQL database option
+- Automatic SSL certificates
+- Free tier available
+- Easy CI/CD with GitHub
+
+See [RENDER-DEPLOYMENT.md](RENDER-DEPLOYMENT.md) for complete step-by-step instructions.
+
+### Option 3: Cloud Platform Deployment
 
 #### AWS (Elastic Beanstalk, EC2, or ECS)
 

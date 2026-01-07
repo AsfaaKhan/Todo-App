@@ -59,5 +59,8 @@ For complete deployment instructions, see [DEPLOYMENT.md](DEPLOYMENT.md).
 ### Frontend (Next.js) on Vercel
 The frontend is configured for deployment on Vercel. See `frontend/README.md` for detailed deployment instructions.
 
-### Backend (FastAPI) Deployment
-The backend service can be deployed using various methods including Docker, cloud platforms, or traditional servers. See [DEPLOYMENT.md](DEPLOYMENT.md) for comprehensive deployment options.
+### Backend (FastAPI) on Render (Recommended)
+The backend is optimized for deployment on Render. See [RENDER-DEPLOYMENT.md](RENDER-DEPLOYMENT.md) for complete step-by-step instructions.
+
+### Other Backend Deployment Options
+The backend service can also be deployed using various methods including Docker, cloud platforms, or traditional servers. See [DEPLOYMENT.md](DEPLOYMENT.md) for comprehensive deployment options.
